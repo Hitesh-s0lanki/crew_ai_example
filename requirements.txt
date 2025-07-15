@@ -1,0 +1,7 @@
+crewai
+gradio
+markdown_pdf
+openai
+python-dotenv
+crewai_tools 
+agentops

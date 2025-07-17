@@ -11,16 +11,13 @@ const MainScreen = () => {
   const notebook: Notebook = rawNotebook;
   return (
     <SidebarInset className="w-full flex flex-col">
-      <Header title="Financial Reseacher" />
+      <Header title="Debater Crew" />
       <TabViewComponent
         overview={
           <Overview
-            title="Financial Researcher Crew"
-            description="Our Crew combines a Senior Financial Researcher—digging deep
-                  into company health, history, news and trends—with a Market
-                  Analyst who transforms those insights into clear, actionable
-                  reports."
-            image="/crew/financial-researcher.svg"
+            title="Debater Crew"
+            description="Debate crew with a Debater agent that crafts concise, persuasive pro and con arguments on any motion and a Judge agent that objectively chooses the more convincing side."
+            image="/crew/debater.svg"
           />
         }
         code={<NotebookViewer notebook={notebook} />}

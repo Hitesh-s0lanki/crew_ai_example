@@ -27,7 +27,7 @@ const Navbar = () => {
               size="sm"
               className=" bg-transparent"
               asChild>
-              <Link href="/home">Get Started</Link>
+              <Link href="/financial-researcher">Get Started</Link>
             </Button>
             <UserButton />
           </>

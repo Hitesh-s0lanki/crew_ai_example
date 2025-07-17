@@ -39,7 +39,7 @@ const Hero = () => {
 
         {isLoaded && isSignedIn && (
           <Button asChild>
-            <Link href="/home">Get Started</Link>
+            <Link href="/financial-researcher">Get Started</Link>
           </Button>
         )}
       </div>

@@ -14,7 +14,13 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import Image from "next/image";
-import { DollarSignIcon, Speech } from "lucide-react";
+import {
+  BookOpenIcon,
+  Code2,
+  DollarSignIcon,
+  Speech,
+  ToolCase,
+} from "lucide-react";
 import { usePathname } from "next/navigation";
 
 // This is sample data.
@@ -31,8 +37,23 @@ const data = {
         },
         {
           title: "Debater",
-          url: "#",
+          url: "/debater",
           icon: <Speech className="size-4" />,
+        },
+        {
+          title: "Book Researcher",
+          url: "/book-researcher",
+          icon: <BookOpenIcon className="size-4" />,
+        },
+        {
+          title: "Engineering Team",
+          url: "/engineering-team",
+          icon: <ToolCase className="size-4" />,
+        },
+        {
+          title: "Coder",
+          url: "/coder",
+          icon: <Code2 className="size-4" />,
         },
       ],
     },

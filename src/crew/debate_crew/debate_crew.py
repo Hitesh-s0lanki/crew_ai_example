@@ -1,33 +1,24 @@
-import os
-from dotenv import load_dotenv
-from crewai_tools import SerperDevTool
 from crewai import Agent, Task, Crew
 
 class FinancialResearcherCrew:
 
     def __init__(self, openai_llm, gemini_llm):
-        load_dotenv()
-        os.environ["SERPER_API_KEY"] = os.getenv('SERPER_API_KEY')
-
         self.agents = []
         self.tasks = [] 
         self.openai_llm = openai_llm
         self.gemini_llm = gemini_llm
 
     def define_agent(self):
-        self.research_agent = Agent(
+        self.debater = Agent(
             llm = self.openai_llm,
-            role="Senior Financial Researcher for {company}",
-            goal="Research the company, news and potential for {company}",
-            backstory="""You're a seasoned financial researcher with a talent for finding
-            the most relevant information about {company}.
-            Known for your ability to find the most relevant
-            information and present it in a clear and concise manner.""",
-            tools=[SerperDevTool()],
+            role="A compelling debater",
+            goal="Present a clear argument either in favor of or against the motion. The motion is: {motion}",
+            backstory="""You're an experienced debator with a knack for giving concise but convincing arguments.
+            The motion is: {motion}""",
             verbose=True  # Enable logging for debugging
         )
 
-        self.analyst_agent= Agent(
+        self.judge= Agent(
             llm = self.openai_llm,
             role="Market Analyst and Report writer focused on {company}",
             goal=""" Analyze company {company} and create a comprehensive, well-structured report
@@ -36,12 +27,11 @@ class FinancialResearcherCrew:
             and company research. You have a talent for identifying patterns and extracting
             meaningful insights from research data, then communicating
             those insights through well crafted reports""",
-            tools=[SerperDevTool()],
             verbose=True  # Enable logging for debugging
         )
 
-        self.agents.append(self.research_agent)
-        self.agents.append(self.analyst_agent)
+        self.agents.append(self.debater)
+        self.agents.append(self.judge)
  
     def define_task(self):
         self.research_task = Task(
@@ -56,7 +46,7 @@ class FinancialResearcherCrew:
             expected_output=""" A comprehensive research document with well-organized sections covering
             all the requested aspects of {company}. Include specific facts, figures,
             and examples where relevant.""",
-            agent=self.research_agent
+            agent=self.debater
         )
 
         self.analysis_task = Task(
@@ -70,7 +60,7 @@ class FinancialResearcherCrew:
             expected_output="""  A polished, professional report on {company} that presents the research
             findings with added analysis and insights. The report should be well-structured
             with an executive summary, main sections, and conclusion.""",
-            agent=self.analyst_agent
+            agent=self.judge
         )
 
         self.tasks.append(self.research_task)

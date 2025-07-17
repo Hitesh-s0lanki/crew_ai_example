@@ -11,11 +11,11 @@ const MainScreen = () => {
   const notebook: Notebook = rawNotebook;
   return (
     <SidebarInset className="w-full flex flex-col">
-      <Header title="Financial Reseacher" />
+      <Header title="Book Reseacher" />
       <TabViewComponent
         overview={
           <Overview
-            title="Financial Researcher Crew"
+            title="Book Researcher Crew"
             description="Our Crew combines a Senior Financial Researcher—digging deep
                   into company health, history, news and trends—with a Market
                   Analyst who transforms those insights into clear, actionable

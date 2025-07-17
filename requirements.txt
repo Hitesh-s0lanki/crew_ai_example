@@ -5,3 +5,5 @@ openai
 python-dotenv
 crewai_tools 
 agentops
+fastapi 
+uvicorn

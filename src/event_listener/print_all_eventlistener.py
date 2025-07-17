@@ -72,46 +72,44 @@ class PrintAllEventsListener(BaseEventListener):
             print(f"[CrewKickoffCompletedEvent] Crew finished successfully.")
 
         # Agent execution
-        @crewai_event_bus.on(AgentExecutionStartedEvent)
-        def _on_agent_execution_started(source, event: AgentExecutionStartedEvent):
-            print(f"[AgentExecutionStartedEvent] Agent {event.agent_id} started task.")
+        # @crewai_event_bus.on(AgentExecutionStartedEvent)
+        # def _on_agent_execution_started(source, event: AgentExecutionStartedEvent):
+        #     print(f"[AgentExecutionStartedEvent] Agent {event.agent.role} started task.")
+        #     print(f"prompt for the agent : {event.task_prompt}")
 
-        # Task lifecycle
-        @crewai_event_bus.on(TaskStartedEvent)
-        def _on_task_started(source, event: TaskStartedEvent):
-            print(f"[TaskStartedEvent] Task {event.task} started.")
+        # # Task lifecycle
+        # @crewai_event_bus.on(TaskStartedEvent)
+        # def _on_task_started(source, event: TaskStartedEvent):
+        #     print(f"[TaskStartedEvent] Task {event.task} started.")
 
-        @crewai_event_bus.on(TaskCompletedEvent)
-        def _on_task_completed(source, event: TaskCompletedEvent):
-            print(f"[TaskCompletedEvent] Task {event.task} completed.")
+        # @crewai_event_bus.on(TaskCompletedEvent)
+        # def _on_task_completed(source, event: TaskCompletedEvent):
+        #     print(f"[TaskCompletedEvent] Task {event.task} completed.")
 
-        @crewai_event_bus.on(TaskEvaluationEvent)
-        def _on_task_evaluation(source, event: TaskEvaluationEvent):
-            print(f"[TaskEvaluationEvent] Task {event.task} evaluated.")
+        # @crewai_event_bus.on(TaskEvaluationEvent)
+        # def _on_task_evaluation(source, event: TaskEvaluationEvent):
+        #     print(f"[TaskEvaluationEvent] Task {event.task} evaluated.")
 
         # LLM calls and streaming
-        @crewai_event_bus.on(LLMCallStartedEvent)
-        def _on_llm_call_started(source, event: LLMCallStartedEvent):
-            print(f"[LLMCallStartedEvent] Prompt sent to LLM.")
+        # @crewai_event_bus.on(LLMCallStartedEvent)
+        # def _on_llm_call_started(source, event: LLMCallStartedEvent):
+        #     print(f"[LLMCallStartedEvent] Prompt sent to LLM.")
+        #     print(f"Messages from the LLM: {event.messages}") # arrays of messages
 
-        @crewai_event_bus.on(LLMStreamChunkEvent)
-        def _on_llm_stream_chunk(source, event: LLMStreamChunkEvent):
-            print(f"[LLMStreamChunkEvent] Received chunk: {event.token!r}")
-
-        @crewai_event_bus.on(LLMCallCompletedEvent)
-        def _on_llm_call_completed(source, event: LLMCallCompletedEvent):
-            print(f"[LLMCallCompletedEvent] Full response received.")
+        # @crewai_event_bus.on(LLMCallCompletedEvent)
+        # def _on_llm_call_completed(source, event: LLMCallCompletedEvent):
+        #     print(f"[LLMCallCompletedEvent] Full response received. {event.response}")
 
         # Tool usage
-        @crewai_event_bus.on(ToolUsageStartedEvent)
-        def _on_tool_usage_started(source, event: ToolUsageStartedEvent):
-            print(f"[ToolUsageStartedEvent] Calling tool: {event.tool_name}")
+        # @crewai_event_bus.on(ToolUsageStartedEvent)
+        # def _on_tool_usage_started(source, event: ToolUsageStartedEvent):
+        #     print(f"[ToolUsageStartedEvent] Calling tool: {event.tool_name}")
 
         @crewai_event_bus.on(ToolUsageFinishedEvent)
         def _on_tool_usage_finished(source, event: ToolUsageFinishedEvent):
-            print(f"[ToolUsageFinishedEvent] Tool {event.tool_name} finished.")
+            print(f"[ToolUsageFinishedEvent] Tool {event.output} finished.")
 
-        # Knowledge retrieval
-        @crewai_event_bus.on(KnowledgeRetrievalStartedEvent)
-        def _on_knowledge_retrieval_started(source, event: KnowledgeRetrievalStartedEvent):
-            print(f"[KnowledgeRetrievalStartedEvent] Retrieving from knowledge base…")
+        # # Knowledge retrieval
+        # @crewai_event_bus.on(KnowledgeRetrievalStartedEvent)
+        # def _on_knowledge_retrieval_started(source, event: KnowledgeRetrievalStartedEvent):
+        #     print(f"[KnowledgeRetrievalStartedEvent] Retrieving from knowledge base…")

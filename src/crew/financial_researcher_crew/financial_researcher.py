@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from crewai_tools import SerperDevTool
 from crewai import Agent, Task, Crew
 
-from src.event_listener.print_all_eventlistener import PrintAllEventsListener
+from src.event_listener.custom_event_streamer import CustomStreamEventListener
 
 class FinancialResearcherCrew:
 
@@ -85,7 +85,7 @@ class FinancialResearcherCrew:
         crew = Crew(
             agents=self.agents,
             tasks=self.tasks,
-            event_listener=PrintAllEventsListener()
+            event_listener=CustomStreamEventListener()
         )
 
         return crew

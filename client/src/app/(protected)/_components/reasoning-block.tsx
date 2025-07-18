@@ -5,62 +5,60 @@ import {
   AIReasoningContent,
   AIReasoningTrigger,
 } from "@/components/ui/kibo-ui/ai/reasoning";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
-interface Props {
-  company: string;
-}
+type Props = {
+  title?: string;
+  reasoningSteps: string;
+};
 
-const ReasoningBlock: React.FC<Props> = ({ company }) => {
-  const [title, setTitle] = useState("Thinking");
+const ReasoningBlock = ({ title = "Thinking...", reasoningSteps }: Props) => {
   const [content, setContent] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
+  const [currentTokenIndex, setCurrentTokenIndex] = useState(0);
+  const [tokens, setTokens] = useState<string[]>([]);
+
+  // Function to chunk text into fake tokens of 3-4 characters
+  const chunkIntoTokens = useCallback((text: string): string[] => {
+    const tokens: string[] = [];
+    let i = 0;
+    while (i < text.length) {
+      const chunkSize = Math.floor(Math.random() * 2) + 3; // Random size between 3-4
+      tokens.push(text.slice(i, i + chunkSize));
+      i += chunkSize;
+    }
+    return tokens;
+  }, []);
 
   useEffect(() => {
-    // kick off SSE when component mounts
-    const es = new EventSource(
-      `http://localhost:8000/stream/financial-researcher?company=${encodeURIComponent(
-        company
-      )}`
-    );
+    const tokenizedSteps = chunkIntoTokens(reasoningSteps);
+    setTokens(tokenizedSteps);
+    setContent("");
+    setCurrentTokenIndex(0);
     setIsStreaming(true);
+  }, [chunkIntoTokens, reasoningSteps]);
 
-    es.onmessage = (e) => {
-      const { title, response } = JSON.parse(e.data) as {
-        title: string;
-        response: string;
-      };
-
-      // append each chunk
-      setTitle(title);
-      setContent(response);
-
-      // once crew completes, stop streaming & close connection
-      if (title === "Crew Completed") {
+  useEffect(() => {
+    if (!isStreaming || currentTokenIndex >= tokens.length) {
+      if (isStreaming) {
         setIsStreaming(false);
-        es.close();
       }
-    };
-
-    es.onerror = () => {
-      // on error, close and stop
-      setIsStreaming(false);
-      es.close();
-    };
-
-    return () => {
-      es.close();
-    };
-  }, [company]);
+      return;
+    }
+    const timer = setTimeout(() => {
+      setContent((prev) => prev + tokens[currentTokenIndex]);
+      setCurrentTokenIndex((prev) => prev + 1);
+    }, 25); // Faster interval since we're streaming smaller chunks
+    return () => clearTimeout(timer);
+  }, [isStreaming, currentTokenIndex, tokens]);
 
   return (
     <div className="w-full p-4">
-      <AIReasoning className="w-full" isStreaming={isStreaming}>
-        <AIReasoningTrigger title={title} />
+      <AIReasoning title={title} className="w-full" isStreaming={isStreaming}>
+        <AIReasoningTrigger />
         <AIReasoningContent>{content}</AIReasoningContent>
       </AIReasoning>
     </div>
   );
 };
-
 export default ReasoningBlock;

@@ -1,5 +1,4 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Image from "next/image";
 
 type Props = {
   overview: React.ReactNode;
@@ -8,7 +7,7 @@ type Props = {
   isTry?: boolean;
 };
 
-const TabViewComponent = ({ overview, code, isTry }: Props) => {
+const TabViewComponent = ({ overview, code, tryOut, isTry }: Props) => {
   return (
     <div className="flex w-full min-h-screen flex-col gap-6 p-5">
       <Tabs defaultValue="overview">
@@ -20,12 +19,7 @@ const TabViewComponent = ({ overview, code, isTry }: Props) => {
           </TabsList>
         </div>
         <TabsContent value="overview">{overview}</TabsContent>
-        {/* <TabsContent value="try">
-          <div className="w-full px-20 py-10">
-            <Example />
-            <ReasoningBlock company="Google" />
-          </div>
-        </TabsContent> */}
+        {isTry && <TabsContent value="try">{tryOut}</TabsContent>}
         <TabsContent value="code">
           <div className="p-5  min-h-screen">{code}</div>
         </TabsContent>

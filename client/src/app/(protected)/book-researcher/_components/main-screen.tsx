@@ -23,6 +23,7 @@ const MainScreen = () => {
             image="/crew/financial-researcher.svg"
           />
         }
+        isTry={true}
         code={<NotebookViewer notebook={notebook} />}
       />
     </SidebarInset>

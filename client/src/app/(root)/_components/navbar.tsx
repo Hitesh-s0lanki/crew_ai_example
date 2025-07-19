@@ -11,7 +11,7 @@ const Navbar = () => {
     <nav className="relative flex items-center justify-between p-4 md:px-16 lg:px-24 xl:px-32 md:py-6 w-full ">
       <div className=" flex gap-2 items-center">
         <Image src={"/logo.png"} alt="logo" height={40} width={40} />
-        <h1 className="text-xl font-semibold">Crewai</h1>
+        <h1 className="text-xl font-semibold">Crewai Agents</h1>
       </div>
       <div className="md:ml-auto md:justify-end justify-between flex items-center gap-x-2">
         {isLoaded && !isSignedIn && (
@@ -26,7 +26,8 @@ const Navbar = () => {
               variant="outline"
               size="sm"
               className=" bg-transparent"
-              asChild>
+              asChild
+            >
               <Link href="/financial-researcher">Get Started</Link>
             </Button>
             <UserButton />

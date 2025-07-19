@@ -14,6 +14,8 @@ pip install -r requirements.txt
 
 source venv/bin/activate
 
+source venv/bin/deactivate
+
 ## To Download the dependencies
 
 pip install -r requirements.txt

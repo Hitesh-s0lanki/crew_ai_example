@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="w-full bg-gradient-to-b from-red-100 to-[#FFFFFF] text-gray-800">
+    <footer className="w-full bg-gradient-to-b from-orange-200 to-[#FFFFFF] text-gray-800">
       <div className="max-w-7xl mx-auto px-6 py-16 flex flex-col items-center">
         <div className="flex items-center space-x-3 mb-6 text-2xl font-semibold">
           Crewai Example

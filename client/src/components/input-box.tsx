@@ -9,45 +9,56 @@ import {
   AIInputTools,
 } from "@/components/ui/kibo-ui/ai/input";
 import { MicIcon, PlusIcon } from "lucide-react";
-import { type FormEventHandler, useState } from "react";
+import { type FormEventHandler } from "react";
 
-const Example = () => {
-  const [text, setText] = useState<string>("");
-  const [status, setStatus] = useState<
-    "submitted" | "streaming" | "ready" | "error"
-  >("ready");
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
-    event.preventDefault();
-    if (!text) {
-      return;
-    }
-    setStatus("submitted");
-    setTimeout(() => {
-      setStatus("streaming");
-    }, 200);
-    setTimeout(() => {
-      setStatus("ready");
-    }, 2000);
+type Props = {
+  text: string;
+  label: string;
+  placeholder?: string;
+  setText: (text: string) => void;
+  status: "submitted" | "streaming" | "ready" | "error" | "done";
+  setStatus: (
+    status: "submitted" | "streaming" | "ready" | "error" | "done"
+  ) => void;
+  onSubmit: FormEventHandler<HTMLFormElement>;
+};
+
+const InputBox = ({
+  text,
+  label,
+  placeholder,
+  setText,
+  status,
+  setStatus,
+  onSubmit,
+}: Props) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    setStatus("done");
+    onSubmit(e);
   };
   return (
-    <AIInput onSubmit={handleSubmit}>
-      <AIInputTextarea
-        onChange={(e) => setText(e.target.value)}
-        value={text}
-        placeholder="Write the name of the Company"
-      />
-      <AIInputToolbar>
-        <AIInputTools>
-          <AIInputButton>
-            <PlusIcon size={16} />
-          </AIInputButton>
-          <AIInputButton>
-            <MicIcon size={16} />
-          </AIInputButton>
-        </AIInputTools>
-        <AIInputSubmit disabled={!text} status={status} />
-      </AIInputToolbar>
-    </AIInput>
+    <div className="w-full md:w-1/2 lg:w-2/3 flex flex-col gap-6 justify-center items-center py-10">
+      <h1 className=" text-xl text-center ">{label}</h1>
+      <AIInput onSubmit={handleSubmit}>
+        <AIInputTextarea
+          onChange={(e) => setText(e.target.value)}
+          value={text}
+          placeholder={placeholder}
+        />
+        <AIInputToolbar>
+          <AIInputTools>
+            <AIInputButton>
+              <PlusIcon size={16} />
+            </AIInputButton>
+            <AIInputButton>
+              <MicIcon size={16} />
+            </AIInputButton>
+          </AIInputTools>
+          <AIInputSubmit disabled={!text} status={status} />
+        </AIInputToolbar>
+      </AIInput>
+    </div>
   );
 };
-export default Example;
+export default InputBox;

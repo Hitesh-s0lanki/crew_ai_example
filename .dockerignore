@@ -1,0 +1,10 @@
+__pycache__/
+venv/
+client/
+crew_course/
+.env
+.git/
+.gitignore
+.ipynb_checkpoints/
+*.ipynb
+README.md

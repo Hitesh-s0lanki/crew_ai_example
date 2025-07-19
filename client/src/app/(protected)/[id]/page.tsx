@@ -1,13 +1,17 @@
 import MainScreen from "./_components/main-screen";
 
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 const CrewPage = async ({ params }: Props) => {
-  const { id } = await params;
+  const paramsObj = await params;
 
-  return <MainScreen id={id} />;
+  if (!paramsObj.id) {
+    return <div>No ID provided</div>;
+  }
+
+  return <MainScreen id={paramsObj.id} />;
 };
 
 export default CrewPage;

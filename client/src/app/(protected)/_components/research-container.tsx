@@ -27,9 +27,9 @@ const ResearchContainer = ({ crew }: Props) => {
 
     // open SSE once
     const es = new EventSource(
-      `http://localhost:8000/stream/${crew.id}?input=${encodeURIComponent(
-        company
-      )}`
+      `${process.env.NEXT_PUBLIC_API_URL}/stream/${
+        crew.id
+      }?input=${encodeURIComponent(company)}`
     );
     esRef.current = es;
 

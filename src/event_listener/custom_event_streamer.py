@@ -1,7 +1,5 @@
 ## Stream Response through fastapi 
-import json
 import asyncio
-from fastapi.responses import StreamingResponse
 
 from crewai.utilities.events.base_event_listener import BaseEventListener
 
@@ -31,7 +29,7 @@ class CustomStreamEventListener(BaseEventListener):
             payload = {
                 "title": "Crew Kickoff",
                 "type": "crew",
-                "response": f"Inputs: {event.inputs}"
+                "response": f"User: {event.inputs}"
             }
             event_queue.put_nowait(payload)
 
@@ -64,7 +62,7 @@ class CustomStreamEventListener(BaseEventListener):
             payload = {
                 "title": "LLM Call",
                 "type": "llm",
-                "response": f"Prompt → {event.messages[-1]}"
+                "response": f"{event.messages[-1].content}"
             }
             event_queue.put_nowait(payload)
 

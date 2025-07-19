@@ -93,12 +93,14 @@ export const AIReasoning = memo(
 
     return (
       <AIReasoningContext.Provider
-        value={{ isStreaming, isOpen, setIsOpen, duration }}>
+        value={{ isStreaming, isOpen, setIsOpen, duration }}
+      >
         <Collapsible
           className={cn("not-prose mb-4", className)}
           onOpenChange={handleOpenChange}
           open={isOpen}
-          {...props}>
+          {...props}
+        >
           {children}
         </Collapsible>
       </AIReasoningContext.Provider>
@@ -127,13 +129,16 @@ export const AIReasoningTrigger = memo(
           "flex items-center gap-2 text-muted-foreground text-sm",
           className
         )}
-        {...props}>
+        {...props}
+      >
         {children ?? (
           <>
             {isStreaming && duration === 0 ? (
               <p>{title}...</p>
             ) : (
-              <p>Thought for {duration} seconds</p>
+              <p>
+                Thought for {duration} seconds {title}
+              </p>
             )}
             <ChevronDownIcon
               className={cn(
@@ -158,7 +163,8 @@ export const AIReasoningContent = memo(
   ({ className, children, ...props }: AIReasoningContentProps) => (
     <CollapsibleContent
       className={cn("mt-4 text-muted-foreground text-sm", className)}
-      {...props}>
+      {...props}
+    >
       <AIResponse className="grid gap-2">{children}</AIResponse>
     </CollapsibleContent>
   )

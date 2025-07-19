@@ -3,6 +3,7 @@
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -14,14 +15,9 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  BookOpenIcon,
-  Code2,
-  DollarSignIcon,
-  Speech,
-  ToolCase,
-} from "lucide-react";
+import { BookOpenIcon, DollarSignIcon, Speech, ToolCase } from "lucide-react";
 import { usePathname } from "next/navigation";
+import UserButton from "./user-button";
 
 // This is sample data.
 const data = {
@@ -50,11 +46,6 @@ const data = {
           url: "/engineering-team",
           icon: <ToolCase className="size-4" />,
         },
-        {
-          title: "Coder",
-          url: "/coder",
-          icon: <Code2 className="size-4" />,
-        },
       ],
     },
   ],
@@ -82,7 +73,8 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton
                       isActive={pathname.includes(item.url)}
-                      asChild>
+                      asChild
+                    >
                       <Link href={item.url} className="flex gap-2">
                         {item.icon}
                         {item.title}
@@ -96,6 +88,9 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
         ))}
       </SidebarContent>
       <SidebarRail />
+      <SidebarFooter>
+        <UserButton />
+      </SidebarFooter>
     </Sidebar>
   );
 };

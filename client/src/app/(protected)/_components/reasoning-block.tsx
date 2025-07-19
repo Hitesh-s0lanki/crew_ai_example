@@ -53,7 +53,7 @@ const ReasoningBlock = ({ title = "Thinking...", reasoningSteps }: Props) => {
   }, [isStreaming, currentTokenIndex, tokens]);
 
   return (
-    <div className="w-full p-4">
+    <div className="w-full">
       <AIReasoning title={title} className="w-full" isStreaming={isStreaming}>
         <AIReasoningTrigger />
         <AIReasoningContent>{content}</AIReasoningContent>

@@ -1,18 +1,7 @@
+import { Notebook } from "@/lib/data";
 import React from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
-
-export interface NotebookCell {
-  id: string;
-  cell_type: "code" | "markdown" | string;
-  execution_count: number | null;
-  source: string[];
-}
-
-export interface Notebook {
-  cells: NotebookCell[];
-  metadata: Record<string, any>;
-}
 
 interface NotebookViewerProps {
   notebook: Notebook;
@@ -24,7 +13,8 @@ const NotebookViewer: React.FC<NotebookViewerProps> = ({ notebook }) => {
       {notebook.cells.map((cell, idx) => (
         <div
           key={cell.id || idx}
-          className="bg-white rounded-lg shadow overflow-hidden">
+          className="bg-white rounded-lg shadow overflow-hidden"
+        >
           {/* Header */}
           <div className="px-4 py-2 bg-gray-50 border-b border-gray-200 flex justify-between items-center">
             <span className="text-xs font-medium text-gray-600 uppercase">
@@ -42,7 +32,8 @@ const NotebookViewer: React.FC<NotebookViewerProps> = ({ notebook }) => {
             <SyntaxHighlighter
               language="python"
               style={docco}
-              className="p-4 overflow-auto">
+              className="p-4 overflow-auto"
+            >
               {cell.source.join("")}
             </SyntaxHighlighter>
           ) : (

@@ -7,3 +7,4 @@ crewai_tools
 agentops
 fastapi 
 uvicorn
+requests

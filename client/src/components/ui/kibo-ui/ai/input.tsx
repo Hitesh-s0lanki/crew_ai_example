@@ -94,8 +94,8 @@ export const AIInputTextarea = ({
   onChange,
   className,
   placeholder = "What would you like to know?",
-  minHeight = 48,
-  maxHeight = 164,
+  minHeight = 78,
+  maxHeight = 204,
   ...props
 }: AIInputTextareaProps) => {
   const { textareaRef, adjustHeight } = useAutoResizeTextarea({
@@ -187,7 +187,7 @@ export const AIInputButton = ({
 };
 
 export type AIInputSubmitProps = ComponentProps<typeof Button> & {
-  status?: "submitted" | "streaming" | "ready" | "error";
+  status?: "submitted" | "streaming" | "ready" | "error" | "done";
 };
 
 export const AIInputSubmit = ({
@@ -206,6 +206,8 @@ export const AIInputSubmit = ({
     Icon = <SquareIcon />;
   } else if (status === "error") {
     Icon = <XIcon />;
+  } else if (status === "done") {
+    Icon = <SendIcon className="text-green-500" />;
   }
 
   return (
@@ -214,7 +216,8 @@ export const AIInputSubmit = ({
       size={size}
       type="submit"
       variant={variant}
-      {...props}>
+      {...props}
+    >
       {children ?? Icon}
     </Button>
   );
